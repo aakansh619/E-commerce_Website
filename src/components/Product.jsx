@@ -16,46 +16,70 @@ const Product = ({post}) => {
     toast.error("Item removed from Cart");
   }
 
-  return (
-    <div className="flex bg-white flex-col items-center justify-between hover:scale-110 transition shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]
-    duration-300 ease-in hover:shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px] gap-3 p-4 mt-10 ml-5 rounded-xl group h-[380px]">
-      <div>
-        <p className="text-gray-700 font-semibold text-lg text-left truncate w-40 mt-1">{post.title}</p>
-      </div>
-      <div>
-        <p className="w-40 text-gray-400 font-normal text-[10px] text-left">
-          {post.description.split(" ").slice(0,10).join(" ") + "..."} 
+ return (
+  <div className="group relative rounded-2xl p-[1px] bg-gradient-to-br from-cyan-500/30 via-blue-500/20 to-purple-500/30 transition-all duration-300 hover:scale-105 hover:-translate-y-1">
+
+    {/* 🔥 Glass Card */}
+    <div className="h-[390px] rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl p-4 flex flex-col justify-between overflow-hidden transition-all duration-300 group-hover:shadow-cyan-500/20">
+
+      {/* ✨ Glow Hover Layer */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-cyan-500/5 blur-2xl"></div>
+
+      {/* 📦 Title */}
+      <div className="relative z-10">
+        <p className="text-white font-semibold text-sm leading-5 line-clamp-2 min-h-[40px]">
+          {post.title}
         </p>
       </div>
-      <div className="h-[170px]">
-        <img src={post.image} alt="" className="h-full w-full"/>
-      </div>
-      <div className="flex justify-center gap-12 items-center w-full mt-5">
-        <div>
-          <p className="text-green-600 font-semibold ">${post.price}</p>
-        </div>
 
-          {
-            cart.some((p) => p.id === post.id) ? 
-            (<button
-              className="text-gray-700 border-2 border-gray-700 rounded-full font-semibold text-[12px]
-              p-1 px-3 uppercase hover:bg-gray-700 hover:text-white transition duration-300 ease-in group-hover:text-white group-hover:bg-gray-700"
-              onClick={removeFromCart}
-            >
-              Remove Item
-            </button>) : 
-            (<button
-              className="text-gray-700 border-2 border-gray-700 rounded-full font-semibold text-[12px]
-              p-1 px-3 uppercase hover:bg-gray-700 hover:text-white transition duration-300 ease-in group-hover:text-white group-hover:bg-gray-700"
-              onClick={addToCart}
-            >
-              Add to Cart
-            </button>)
-          }
-  
+      {/* 📝 Description */}
+      <div className="relative z-10">
+        <p className="text-gray-400 text-xs leading-5">
+          {post.description.split(" ").slice(0, 10).join(" ") + "..."}
+        </p>
+      </div>
+
+      {/* 🖼️ Product Image */}
+      <div className="relative z-10 h-[170px] flex items-center justify-center overflow-hidden">
+        <img
+          src={post.image}
+          alt={post.title}
+          className="h-full object-contain transition-transform duration-500 group-hover:scale-110"
+        />
+      </div>
+
+      {/* 💰 Bottom Section */}
+      <div className="relative z-10 flex justify-between items-center mt-3">
+
+        {/* Price */}
+        <p className="text-cyan-400 font-bold text-lg">
+          ${post.price}
+        </p>
+
+        {/* Button */}
+        {cart.some((p) => p.id === post.id) ? (
+          <button
+            onClick={removeFromCart}
+            className="px-3 py-2 rounded-full text-xs font-semibold uppercase
+            bg-red-500/15 text-red-400 border border-red-400/30
+            hover:bg-red-500 hover:text-white transition-all duration-300 cursor-pointer"
+          >
+            Remove
+          </button>
+        ) : (
+          <button
+            onClick={addToCart}
+            className="px-3 py-2 rounded-full text-xs font-semibold uppercase
+            bg-cyan-500/15 text-cyan-400 border border-cyan-400/30
+            hover:bg-cyan-500 hover:text-white transition-all duration-300 cursor-pointer"
+          >
+            Add Cart
+          </button>
+        )}
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default Product;

@@ -63,83 +63,133 @@ const Home = () => {
 
   console.log(filtered)
 
-  return (
-    <div className="flex bg-gray-100 p-10 mx-auto space-x-4">
-      {/* Sidebar filters */}
-      <div className="w-64 p-4 rounded border-r-2 border-gray-200 bg-white shadow-sm">
-        {/* Category Filter */}
-        <div className="mb-6 mt-5">
-          <p className="font-semibold text-lg mb-2">Category</p>
-          <div className="flex flex-col mt-2 space-y-1">
-            {uniqueCategories.map((cat) => (
-              <button
-                key={cat}
-                className={`text-left px-2 py-1 rounded hover:bg-gray-200 ${selectedCategory === cat ? "bg-gray-300 font-semibold" : ""
+ return (
+  <div className="min-h-screen bg-gradient-to-br from-[#020617] via-[#0f172a] to-[#111827] text-white px-6 py-8">
+    
+    <div className="max-w-7xl mx-auto flex gap-6">
+
+      {/* 🔥 Sidebar */}
+      <div className="w-72 h-fit sticky top-6 rounded-2xl p-[1px] bg-gradient-to-br from-cyan-500/30 via-blue-500/20 to-purple-500/30 shadow-2xl">
+
+        <div className="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-5">
+
+          <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            Filters
+          </h2>
+
+          {/* Category */}
+          <div className="mb-8">
+            <p className="text-sm uppercase tracking-widest text-gray-400 mb-3">
+              Category
+            </p>
+
+            <div className="flex flex-col gap-2">
+              {uniqueCategories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => dispatch(setSelectedCategory(cat))}
+                  className={`text-left px-4 py-2 rounded-xl transition-all duration-300 ${
+                    selectedCategory === cat
+                      ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg scale-[1.02]"
+                      : "bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white"
                   }`}
-                onClick={() => dispatch(setSelectedCategory(cat))}
-              >
-                {cat.charAt(0).toUpperCase() + cat.slice(1)}
-              </button>
-            ))}
+                >
+                  {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Price Filter */}
-        <div className="mb-4">
-          <p className="font-semibold text-lg mb-2">Price</p>
-          <div className="flex flex-col mt-2 space-y-2">
-            <label className="cursor-pointer">
-              <input
-                type="radio"
-                name="price"
-                value="0-50"
-                checked={selectedPrice === "0-50"}
-                onChange={(e) => dispatch(setSelectedPrice(e.target.value))}
-                className="mr-2"
-              />
-              $0 - $50
-            </label>
+          {/* Price */}
+          <div>
+            <p className="text-sm uppercase tracking-widest text-gray-400 mb-3">
+              Price
+            </p>
 
-            <label className="cursor-pointer">
-              <input
-                type="radio"
-                name="price"
-                value="50-100"
-                checked={selectedPrice === "50-100"}
-                onChange={(e) => dispatch(setSelectedPrice(e.target.value))}
-                className="mr-2"
-              />
-              $50 - $100
-            </label>
+            <div className="flex flex-col gap-3">
 
-            <label className="cursor-pointer">
-              <input
-                type="radio"
-                name="price"
-                value="100+"
-                checked={selectedPrice === "100+"}
-                onChange={(e) => dispatch(setSelectedPrice(e.target.value))}
-                className="mr-2"
-              />
-              $100+
-            </label>
+              <label className="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-cyan-400 transition">
+                <input
+                  type="radio"
+                  name="price"
+                  value="0-50"
+                  checked={selectedPrice === "0-50"}
+                  onChange={(e) =>
+                    dispatch(setSelectedPrice(e.target.value))
+                  }
+                  className="accent-cyan-500"
+                />
+                $0 - $50
+              </label>
 
+              <label className="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-cyan-400 transition">
+                <input
+                  type="radio"
+                  name="price"
+                  value="50-100"
+                  checked={selectedPrice === "50-100"}
+                  onChange={(e) =>
+                    dispatch(setSelectedPrice(e.target.value))
+                  }
+                  className="accent-cyan-500"
+                />
+                $50 - $100
+              </label>
+
+              <label className="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-cyan-400 transition">
+                <input
+                  type="radio"
+                  name="price"
+                  value="100+"
+                  checked={selectedPrice === "100+"}
+                  onChange={(e) =>
+                    dispatch(setSelectedPrice(e.target.value))
+                  }
+                  className="accent-cyan-500"
+                />
+                $100+
+              </label>
+
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Product grid */}
-      <div className="flex-1 grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {/* 🔥 Products Section */}
+      <div className="flex-1">
+
+        {/* Heading */}
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-500 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            Explore Products
+          </h1>
+          <p className="text-gray-400 mt-1">
+            Discover trending items with premium style
+          </p>
+        </div>
+
+        {/* Product Grid */}
         {loading ? (
-          <Spinner />
+          <div className="flex justify-center mt-20">
+            <Spinner />
+          </div>
         ) : filtered.length > 0 ? (
-          filtered.map((post) => <Product key={post.id} post={post} />)
+          <div className="grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filtered.map((post) => (
+              <Product key={post.id} post={post} />
+            ))}
+          </div>
         ) : (
-          <p>No data found</p>
+          <div className="h-[60vh] flex items-center justify-center">
+            <p className="text-xl text-gray-400">
+              No products found 🚫
+            </p>
+          </div>
         )}
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default Home;
