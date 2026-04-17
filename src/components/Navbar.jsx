@@ -1,7 +1,7 @@
 import { FaShoppingCart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Menu, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState, useEffect } from "react";
 import { setSelectedCategory, setSelectedPrice, updateFilteredProducts } from "../redux/Slices/CartSlice";
 
